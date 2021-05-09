@@ -1,10 +1,11 @@
 import { Button, ChakraProvider } from '@chakra-ui/react'
-import './App.css'
+import theme from './theme/theme'
 
 const App = () => {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Button colorScheme="teal">ボタン</Button>
+      <p>あああああ</p>
     </ChakraProvider>
   )
 }
