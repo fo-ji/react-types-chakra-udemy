@@ -1,10 +1,10 @@
 import { memo, VFC } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
-import Login from '../componente/pages/Login'
+import Login from '../components/pages/Login'
 import { homeRoutes } from './HomeRoutes'
-import Page404 from '../componente/pages/Page404'
-import HeaderLayout from '../componente/templates/HeaderLayout'
+import Page404 from '../components/pages/Page404'
+import HeaderLayout from '../components/templates/HeaderLayout'
 
 const Router: VFC = memo(() => {
   return (
