@@ -1,6 +1,7 @@
-import { memo, VFC } from 'react'
+import { useCallback, memo, VFC } from 'react'
 import { Box, Flex, Heading, Link } from '@chakra-ui/layout'
 import { useDisclosure } from '@chakra-ui/hooks'
+import { useHistory } from 'react-router-dom'
 
 import MenuIconButton from '../../atoms/button/MenuIconButton'
 import MenuDrawer from '../../molecules/MenuDrawer'
@@ -8,6 +9,20 @@ import MenuDrawer from '../../molecules/MenuDrawer'
 const Header: VFC = memo(() => {
   // ChakraUIが提供するhooks
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const history = useHistory()
+
+  // useCallbackの依存配列は中で使用している変数を指定していないと、eslintでは怒られるが、必要なければ無視
+  const onClickHome = useCallback(() => {
+    history.push('/home')
+  }, [])
+
+  const onClickUserManagement = useCallback(() => {
+    history.push('/home/user_management')
+  }, [])
+
+  const onClickSetting = useCallback(() => {
+    history.push('/home/setting')
+  }, [])
 
   return (
     <>
@@ -22,7 +37,13 @@ const Header: VFC = memo(() => {
         {/* レスポンシブは基本的にモバイルファースト(=baseの指定はモバイル) */}
         {/* Headingでh1, h2等に対応 */}
         {/* asでどのタグで実装するか指定できる */}
-        <Flex align="center" as="a" mr={8} _hover={{ cursor: 'pointer' }}>
+        <Flex
+          _hover={{ cursor: 'pointer' }}
+          align="center"
+          as="a"
+          mr={8}
+          onClick={onClickHome}
+        >
           <Heading as="h1" fontSize={{ base: 'md', md: 'lg' }}>
             {/* fontSizeのところresponsive ブレイクポイントで切り替わる */}
             ユーザー管理アプリ
@@ -37,13 +58,19 @@ const Header: VFC = memo(() => {
         >
           {/* Boxはdivタグのようなもの */}
           <Box pr={4}>
-            <Link>ユーザー一覧</Link>
+            <Link onClick={onClickUserManagement}>ユーザー一覧</Link>
           </Box>
-          <Link>設定</Link>
+          <Link onClick={onClickSetting}>設定</Link>
         </Flex>
         <MenuIconButton onOpen={onOpen} />
       </Flex>
-      <MenuDrawer onClose={onClose} isOpen={isOpen} />
+      <MenuDrawer
+        isOpen={isOpen}
+        onClickHome={onClickHome}
+        onClickSetting={onClickSetting}
+        onClickUserManagement={onClickUserManagement}
+        onClose={onClose}
+      />
     </>
   )
 })
