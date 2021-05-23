@@ -4,7 +4,7 @@ import { Box, Divider, Flex, Heading } from '@chakra-ui/layout'
 import { Stack } from '@chakra-ui/layout'
 import PrimaryButton from '../atoms/button/PrimaryButton'
 
-import { useAuth } from '../../hooks/UseAuth'
+import { useAuth } from '../../hooks/useAuth'
 
 const Login: VFC = memo(() => {
   const [userId, setUserId] = useState('')
