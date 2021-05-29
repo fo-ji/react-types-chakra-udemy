@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import { User } from '../types/api/user'
 import { useMessage } from './useMessage'
-import { useLoginUser } from '../hooks/useLoginUser'
+import { useLoginUser } from './useLoginUser'
 
 export const useAuth = () => {
   const history = useHistory()
@@ -21,7 +21,8 @@ export const useAuth = () => {
         .get<User>(`https://jsonplaceholder.typicode.com/users/${id}`)
         .then((res) => {
           if (res.data) {
-            setLoginUser(res.data)
+            const isAdmin = res.data.id === 10 ? true : false
+            setLoginUser({ ...res.data, isAdmin })
             showMessage({ title: 'ログインしました', status: 'success' })
             history.push('/home')
           } else {
